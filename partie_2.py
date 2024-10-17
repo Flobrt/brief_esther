@@ -8,9 +8,6 @@ client = MongoClient("mongodb://root:password@localhost:27017")
 # Select the database
 db = client['entreprise']
 
-# choose the collection
-collection = db['clients']
-
 # Récupérer les fichiers json
 path = 'data/data-json/data-json/'
 files = os.listdir(path)
