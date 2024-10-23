@@ -1,6 +1,7 @@
-from sqlalchemy import create_engine, text, Table, Column, Integer,Float, String, MetaData
 import pandas as pd
+import sqlalchemy as db
 
+from utils import *
 
 username = "root"
 password = "password"
@@ -9,64 +10,13 @@ port = "40000"
 database_csv = "brief2_csv"
 database_json = "brief2_json"
 
-
-# connexion à la db mysql
-def connexion(user, password, host, port, database):
-    try:
-        engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}")
-        conn = engine.connect()
-
-        conn.execute(text(f"CREATE DATABASE IF NOT EXISTS {database}"))
-        print(f"Database {database} created")
-        engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{database}")
-        conn = engine.connect()
-    
-        return conn, engine
-    except Exception as e:
-        print(e)
-        return None, None
-
-# création de la table
-def infer_sqlalchemy_type(dtype):
-    """ Map pandas dtype to SQLAlchemy's types """
-    if "int" in dtype.name:
-        return Integer
-    elif "float" in dtype.name:
-        return Float
-    elif "object" in dtype.name:
-        return String(255)
-    else:
-        return String(255)
-    
-
-# Create table 
-def create_table(df, engine, table_name):
-    metadata = MetaData()
-
-    columns = [Column(name, infer_sqlalchemy_type(dtype)) for name, dtype in df.dtypes.items()]
-    table = Table(table_name, metadata, *columns)
-
-    table.create(engine)
-
-# Connexion à la base de données
-def insert_data(df, engine, table_name):
-    # Insertion des données dans la table clients
-    try:
-        df.to_sql(table_name, con=engine, if_exists='replace', index=False)
-        print("Data inserted")
-    except Exception as e:
-        print(e)
-        print("Data not inserted")
-        exit()
-
-
 ############################
 # Gestion des fichiers CSV #
 ############################
 
 try:
     # Connexion à la base de données mariadb et création de la base de données brief2
-    conn, engine = connexion(username, password, host, port, database_csv)
+    conn, engine = connexion_csv(username, password, host, port, database_csv)
     print("Connexion success")
 except Exception as e:
     print(e)
@@ -111,7 +61,7 @@ for df, df_name in zip(df_list, df_name):
 
 try:
     # Connexion à la base de données mariadb et création de la base de données brief2
-    conn, engine = connexion(username, password, host, port, database_json)
+    conn, engine = connexion_csv(username, password, host, port, database_json)
     print("Connexion success")
 except Exception as e:
     print(e)
