@@ -4,7 +4,7 @@ from utils import *
 
 choix = "0"
 
-while choix != "Q" or choix != "q":
+while choix != "Q" and choix != "q":
     print("Sur quel type de base de données voulez-vous travailler ?")
     print("1. MySQL")
     print("2. MongoDB")
@@ -29,7 +29,7 @@ while choix != "Q" or choix != "q":
             host = "127.0.0.1"
             port = "40000"
 
-            if choix != "1" and choix != "2" and choix != "Q":
+            if choix != "1" and choix != "2" and choix != "Q" and choix != "q":
                 print("Mauvais choix !")
 
             elif choix == "1":
@@ -91,7 +91,7 @@ while choix != "Q" or choix != "q":
             print("Q. Quitter")
             choix = input("Votre choix : ")
 
-            if choix != "1" and choix != "Q":
+            if choix != "1" and choix != "Q" and choix != "q":
                 print("Mauvais choix !")
             
             elif choix == "1":
