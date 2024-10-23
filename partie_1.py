@@ -2,6 +2,14 @@ from sqlalchemy import create_engine, text, Table, Column, Integer,Float, String
 import pandas as pd
 
 
+username = "root"
+password = "password"
+host =  "127.0.0.1" 
+port = "40000"
+database_csv = "brief2_csv"
+database_json = "brief2_json"
+
+
 # connexion à la db mysql
 def connexion(user, password, host, port, database):
     try:
@@ -58,7 +66,7 @@ def insert_data(df, engine, table_name):
 
 try:
     # Connexion à la base de données mariadb et création de la base de données brief2
-    conn, engine = connexion("root", "password", "localhost", "3306", "brief2_csv")
+    conn, engine = connexion(username, password, host, port, database_csv)
     print("Connexion success")
 except Exception as e:
     print(e)
@@ -96,13 +104,14 @@ for df, df_name in zip(df_list, df_name):
     insert_data(df, engine, df_name)
 
 
+
 ###############################
 # Ouverture des fichiers JSON #
 ###############################
 
 try:
     # Connexion à la base de données mariadb et création de la base de données brief2
-    conn, engine = connexion("root", "password", "localhost", "3306", "brief2_json")
+    conn, engine = connexion(username, password, host, port, database_json)
     print("Connexion success")
 except Exception as e:
     print(e)
