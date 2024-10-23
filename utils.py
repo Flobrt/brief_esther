@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine, text, Table, Column, Integer,Float, String, MetaData
 import pandas as pd
 
+
 # <============================== PARTIE SQLALCHEMY ==============================>
 
 # Connexion à la base de données
