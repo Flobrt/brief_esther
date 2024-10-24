@@ -1,6 +1,0 @@
-# Ignorer tout le dossier principal
-data/
-
-# Ne pas ignorer deux sous-dossiers spécifiques
-!data/data_csv/
-!data/data_json/
